@@ -50,17 +50,17 @@ def propLayerHaar(f, lamb, V, J=3): # to replace propLayer
 
 
 ''' get all scattering coefficients '''
-def getRep(f, lamb, V, layer=3, N=1):
+def getRep(f, lamb, V, layer=3, K=3, N=1):
     y_out = []
     y_next = []
-    y = propLayer(f, lamb, V, N=N)
+    y = propLayer(f, lamb, V, K=K, N=N)
     y_out.append(y.pop(0))
     y_next.extend(y)
     for i in range(layer-1):
         for k in range(len(y_next)):
             ftemp = y_next.pop(0)
             ftemp = np.absolute(ftemp)
-            y = propLayer(ftemp, lamb, V, N=N)
+            y = propLayer(ftemp, lamb, V, K=K, N=N)
             y_out.append(y.pop(0))
             y_next.extend(y)
     y_out = np.concatenate(tuple(y_out), axis=0) # use this to form a single matrix
